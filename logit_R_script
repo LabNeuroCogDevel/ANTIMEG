@@ -1,0 +1,15 @@
+library(lme4)
+library(ggplot2)
+DATA<-read.csv('Adult_Rdata_logit.csv', header=TRUE)
+DATA$AccuFac <- factor(DATA$Accu)
+DATA$Subj <- factor(DATA$LunaID)
+
+DATA$FEF_c <- as.vector(scale(DATA$FEF_alpha, center=TRUE, scale=FALSE))
+test <- glmer(AccuFac ~ FEF_alpha + (1 | Subj ), family=binomial, data=DATA)
+
+DATA<-read.csv('Teen_Rdata_logit.csv', header=TRUE)
+DATA$AccuFac <- factor(DATA$Accu)
+DATA$Subj <- factor(DATA$LunaID)
+
+DATA$FEF_c <- as.vector(scale(DATA$FEF_alpha, center=TRUE, scale=FALSE))
+test <- glmer(AccuFac ~ FEF_alpha + (1 | Subj ), family=binomial, data=DATA)
