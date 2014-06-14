@@ -18,5 +18,6 @@ Export_fig http://www.mathworks.com/matlabcentral/fileexchange/23629-export-fig
 
 Standard Error Bars http://www.mathworks.com/matlabcentral/fileexchange/26311-shadederrorbar
 
-Anil Seth's toolbox for Granger Causality analysis. Though he has total different version available now. http://www.anilseth.com/
+Anil Seth's toolbox for Granger Causality analysis. Though he has a total different version available now. http://www.anilseth.com/
+
 SPM8, only using its smoothing function.
