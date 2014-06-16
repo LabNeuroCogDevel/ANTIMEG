@@ -6,7 +6,7 @@ Scripts used to analyzed and generate figures for year 1 multimodal MEG data.
 
 It requires
 
-Our general MEG respo  https://github.com/LabNeuroCogDevel/MEG_Scripts
+Our general MEG repository  https://github.com/LabNeuroCogDevel/MEG_Scripts
 
 MNE http://martinos.org/mne/stable/index.html
 
