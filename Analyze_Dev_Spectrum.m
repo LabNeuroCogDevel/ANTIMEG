@@ -32,7 +32,7 @@ Teen_AS_TFR(3,:,:,:) = Teen_AS_RVLPFC_TFR;
 
 %derive null distribution
 nPerm = 1000;
-%[Stats, df, ~, surrog]=statcond({Adult_AS_TFR, Teen_AS_TFR},'mode','perm','naccu',nPerm);
+[Stats, df, ~, surrog]=statcond({Adult_AS_TFR, Teen_AS_TFR},'mode','perm','naccu',nPerm);
 %null_data = reshape(surrog,30, 476, 3000);
 null_data = surrog; %reshape(surrog,30,20000);
 
