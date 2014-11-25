@@ -5,36 +5,44 @@
 clear all
 close all
 load Dev_Spectrum_Data.mat;
-load surrog.mat;
+%load Adult_Power_Spectrum;
+%load surrog.mat;
+load test_mat.mat;
 
 % pull data
 %D1 = Adult_AS_FEF_TFR;
 %D2 = Teen_AS_FEF_TFR;
 
 %smooth data to facilitate group comparison
-spm_smooth(Adult_AS_RFEF_TFR,Adult_AS_RFEF_TFR,[2,4,0],0); 
+spm_smooth(Adult_AS_FEF_TFR,Adult_AS_FEF_TFR,[2,4,0],0);
+spm_smooth(Teen_AS_FEF_TFR,Teen_AS_FEF_TFR,[2,4,0],0);
+
+spm_smooth(Adult_AS_RFEF_TFR,Adult_AS_RFEF_TFR,[2,4,0],0);
 spm_smooth(Teen_AS_RFEF_TFR,Teen_AS_RFEF_TFR,[2,4,0],0);
 
-spm_smooth(Adult_AS_LFEF_TFR,Adult_AS_LFEF_TFR,[2,4,0],0); 
+spm_smooth(Adult_AS_LFEF_TFR,Adult_AS_LFEF_TFR,[2,4,0],0);
 spm_smooth(Teen_AS_LFEF_TFR,Teen_AS_LFEF_TFR,[2,4,0],0);
 
-spm_smooth(Adult_AS_RDLPFC_TFR,Adult_AS_RDLPFC_TFR,[2,4,0],0); 
+spm_smooth(Adult_AS_RDLPFC_TFR,Adult_AS_RDLPFC_TFR,[2,4,0],0);
 spm_smooth(Teen_AS_RDLPFC_TFR,Teen_AS_RDLPFC_TFR,[2,4,0],0);
 
-spm_smooth(Adult_AS_RVLPFC_TFR,Adult_AS_RVLPFC_TFR,[2,4,0],0); 
+spm_smooth(Adult_AS_RVLPFC_TFR,Adult_AS_RVLPFC_TFR,[2,4,0],0);
 spm_smooth(Teen_AS_RVLPFC_TFR,Teen_AS_RVLPFC_TFR,[2,4,0],0);
 
-spm_smooth(Adult_PS_RFEF_TFR,Adult_PS_RFEF_TFR,[2,4,0],0); 
+spm_smooth(Adult_PS_FEF_TFR,Adult_PS_FEF_TFR,[2,4,0],0);
+spm_smooth(Teen_PS_FEF_TFR,Teen_PS_FEF_TFR,[2,4,0],0);
+
+spm_smooth(Adult_PS_RFEF_TFR,Adult_PS_RFEF_TFR,[2,4,0],0);
 spm_smooth(Teen_PS_RFEF_TFR,Teen_PS_RFEF_TFR,[2,4,0],0);
 
-spm_smooth(Adult_PS_LFEF_TFR,Adult_PS_LFEF_TFR,[2,4,0],0); 
+spm_smooth(Adult_PS_LFEF_TFR,Adult_PS_LFEF_TFR,[2,4,0],0);
 spm_smooth(Teen_PS_LFEF_TFR,Teen_PS_LFEF_TFR,[2,4,0],0);
 
-spm_smooth(Adult_PS_RDLPFC_TFR,Adult_PS_RDLPFC_TFR,[2,4,0],0); 
+spm_smooth(Adult_PS_RDLPFC_TFR,Adult_PS_RDLPFC_TFR,[2,4,0],0);
 spm_smooth(Teen_PS_RDLPFC_TFR,Teen_PS_RDLPFC_TFR,[2,4,0],0);
 
-spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[2,4,0],0); 
-spm_smooth(Teen_PS_RVLPFC_TFR,Teen_APS_RVLPFC_TFR,[2,4,0],0);
+spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[2,4,0],0);
+spm_smooth(Teen_PS_RVLPFC_TFR,Teen_PS_RVLPFC_TFR,[2,4,0],0);
 
 
 %compile data structure
@@ -58,76 +66,92 @@ Teen_PS_TFR(2,:,:,:) = Teen_PS_LFEF_TFR;
 Teen_PS_TFR(3,:,:,:) = Teen_PS_RDLPFC_TFR;
 Teen_PS_TFR(4,:,:,:) = Teen_PS_RVLPFC_TFR;
 
-%derive null distribution
+%stats....
 nPerm = 1000;
-[Stats, df, ps, surrog]=statcond({Adult_AS_RFEF_TFR, Adult_PS_RFEF_TFR; Teen_AS_RFEF_TFR, Teen_PS_RFEF_TFR},'mode','perm','naccu',nPerm);
-%null_data = reshape(surrog,30, 476, 3000);
-null_data = surrog{1}; %reshape(surrog,30,20000);
+[Stats, df, ps, surrog]=statcond({Adult_AS_FEF_TFR, Adult_PS_FEF_TFR ; Teen_AS_FEF_TFR, Teen_PS_FEF_TFR},'mode','bootstrap','naccu',nPerm);
 
-Null_clusts_mass = zeros(size(surrog,1),length(surrog));
-
-%Null_clusts_mass = zeros(length(null_data),1);
-tVal = icdf('f',0.975,1,76);
-
-% for roi = 1:size(null_data,1)
-%     for n = 1:length(null_data)
-%         nd = squeeze(null_data(roi,:,:,n));
-%         null_clusts = bwlabeln(abs(nd)>tVal);
-%         null_clust_mass = sum(abs(nd(null_clusts==1)));
-%         
-%         for j = 2:max(null_clusts)
-%             curr_clust_mass = sum(abs(nd(null_clusts==j)));
-%             if curr_clust_mass > null_clust_mass
-%                 null_clust_mass = curr_clust_mass;
-%             end
-%         end
-%         Null_clusts_mass(roi,n) = null_clust_mass;
-%     end
-% end
-
-
-
-for n = 1:length(null_data)
-   nd = squeeze(null_data(:,:,n));
-   null_clusts = bwlabeln(abs(nd)>tVal);
-   null_clust_mass = sum(abs(nd(null_clusts==1)));
-   
-   for j = 2:max(null_clusts)
-       curr_clust_mass = sum(abs(nd(null_clusts==j)));
-       if curr_clust_mass > null_clust_mass
-           null_clust_mass = curr_clust_mass;
-       end
-   end
-   Null_clusts_mass(n) = null_clust_mass;
-end
-Null_clusts_mass = Null_clusts_mass(:);
-clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05/3))
-
-% cluster statistic test
-
-%D1 = Adult_AS_FEF_TFR;
-%D2 = Adult_PS_FEF_TFR;
-
-%[Stats, df, ~, ~]=statcond({D1 D2},'mode','perm','naccu',nPerm);
-
-test_clusts = bwlabeln(abs(Stats{1})>tVal);
-Test_stat_clusts_mass = zeros(max(max(test_clusts)),1);
-for j = 1:max(max(test_clusts))
-    Test_stat_clusts_mass(j) = sum(abs(Stats{1}(test_clusts==j)));
-    %if curr_clust_mass>test_clusts_mass
-    %    test_clusts_mass = curr_clust_mass
+for contrasts = 1:3
+    
+    null_data = surrog{contrasts}; %reshape(surrog,30,20000);
+    
+    Null_clusts_mass = zeros(size(null_data,1),length(null_data));
+    
+    %Null_clusts_mass = zeros(length(null_data),1);
+    tVal = icdf('f',0.95,1,76);
+    
+    % for roi = 1:size(null_data,1)
+    %     for n = 1:length(null_data)
+    %         nd = squeeze(null_data(roi,:,:,n));
+    %         null_clusts = bwlabeln(abs(nd)>tVal);
+    %         null_clust_mass = sum(abs(nd(null_clusts==1)));
+    %
+    %         for j = 2:max(null_clusts)
+    %             curr_clust_mass = sum(abs(nd(null_clusts==j)));
+    %             if curr_clust_mass > null_clust_mass
+    %                 null_clust_mass = curr_clust_mass;
+    %             end
+    %         end
+    %         Null_clusts_mass(roi,n) = null_clust_mass;
+    %     end
+    % end
+    
+    
+    
+    for n = 1:length(null_data)
+        nd = squeeze(null_data(:,:,n));
+        null_clusts = bwlabeln(abs(nd)>tVal);
+        null_clust_mass = sum(abs(nd(null_clusts==1)));
+        
+        for j = 2:max(null_clusts)
+            curr_clust_mass = sum(abs(nd(null_clusts==j)));
+            if curr_clust_mass > null_clust_mass
+                null_clust_mass = curr_clust_mass;
+            end
+        end
+        Null_clusts_mass(n) = null_clust_mass;
+    end
+    Null_clusts_mass = Null_clusts_mass(:);
+    clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05/16))
+    
+    % cluster statistic test
+    
+    %D1 = Adult_AS_FEF_TFR;
+    %D2 = Adult_PS_FEF_TFR;
+    
+    %[Stats, df, ~, ~]=statcond({D1 D2},'mode','perm','naccu',nPerm);
+    
+    test_clusts = bwlabeln(abs(Stats{contrasts})>tVal);
+    Test_stat_clusts_mass = zeros(max(max(test_clusts)),1);
+    for j = 1:max(max(test_clusts))
+        Test_stat_clusts_mass(j) = sum(abs(Stats{contrasts}(test_clusts==j)));
+        %if curr_clust_mass>test_clusts_mass
+        %    test_clusts_mass = curr_clust_mass
+        %end
+    end
+    Test_stat_clusts_mass
+    
+    Ps=[];
+    for n =1:length(Test_stat_clusts_mass)
+        Ps(n)=1-sum(Test_stat_clusts_mass(n) > Null_clusts_mass)/length(Null_clusts_mass);
+        
+    end
+    Ps
+    %Ps > Test_stat_clusts_mass
+    
+    sig_clust_num = find(Ps<(0.05/16));
+    
+    %if any(sig_clust_num)
+    CM=zeros(size(Stats{contrasts}));
+    for i=1:length(sig_clust_num)
+        tempclust = test_clusts==sig_clust_num(i);
+        CM=CM+tempclust;
+        
+    end
+    figure;
+    Data=Stats{contrasts}.*(CM);
+    pcolor(CTime,FOIs,double(Data));caxis([0 12]); shading flat; colorbar
     %end
 end
-Test_stat_clusts_mass
-
-Ps=[];
-for n =1:length(Test_stat_clusts_mass)
-   Ps(n)=1-sum(Test_stat_clusts_mass(n) > Null_clusts_mass)/length(Null_clusts_mass);
-    
-end
-Ps
-%Ps > Test_stat_clusts_mass
-
 %[S, C, ~, SM, CP, SP, ~] = MEG_Cluster_Stats_th(D1,D2,1000,.0021); % bonferonni corrected
 %[~, ~, ~, ~, ~, ~, Surog1] = MEG_Cluster_Stats_th(Adult_AS_FEF_TFR,Teen_AS_FEF_TFR,1000,.0021); % bonferonni corrected
 %[~, ~, ~, ~, ~, ~, Surog2] = MEG_Cluster_Stats_th(D1,D2,1000,.0021); % bonferonni corrected
@@ -135,12 +159,12 @@ Ps
 
 
 %% plot data
-% 
-% 
-% 
+%
+%
+%
 % M1 = mean(D1,3);
 % M2 = mean(D2,3);
-% 
+%
 % %FigTitle = [cell2mat(ROIS(r)), ' AS Power'];
 % h = figure('visible','on');
 % pcolor(CTime,FOIs,M1);caxis([-40 40]);
@@ -159,12 +183,12 @@ Ps
 % set(gca, 'LooseInset', [0,0,0,0]);
 % set(gca, 'Color', 'none');
 % %export_fig A_RVLPFC.tiff -m4 -transparent
-% 
-% 
+%
+%
 % %FigTitle = [cell2mat(ROIS(r)), ' PS Power'];;
 % h = figure('visible','on');
 % pcolor(CTime,FOIs,M2);caxis([-40 40]);
-% 
+%
 % shading flat;
 % %title(FigTitle, 'FontSize', 24)
 % line([-1.5,-1.5],[2,60],'LineStyle', '-','LineWidth',1.5,'Color','k');
@@ -183,7 +207,7 @@ Ps
 % set(gca, 'LooseInset', [0,0,0,0]);
 % set(gca, 'Color', 'none');
 % %export_fig T_VLPFC.tiff -m4 -transparent
-% 
+%
 % %FigTitle = ['FEF Correct-InCorrect'];
 % h = figure('visible','on');
 % pcolor(CTime,FOIs,S.*(SM));caxis([-5 5]);
