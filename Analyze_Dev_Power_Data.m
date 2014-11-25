@@ -14,68 +14,93 @@ close all;
 load Dev_Power_Data
 
 %smooth
-spm_smooth(Adult_AS_RFEF,Adult_AS_RFEF,[0,3,0],0);
-spm_smooth(Adult_AS_LFEF,Adult_AS_LFEF,[0,3,0],0);
-spm_smooth(Adult_AS_RDLPFC,Adult_AS_RDLPFC,[0,3,0],0);
-spm_smooth(Adult_AS_RVLPFC,Adult_AS_RVLPFC,[0,3,0],0);
-spm_smooth(Adult_PS_RFEF,Adult_PS_RFEF,[0,3,0],0);
-spm_smooth(Adult_PS_LFEF,Adult_PS_LFEF,[0,3,0],0);
-spm_smooth(Adult_PS_RDLPFC,Adult_PS_RDLPFC,[0,3,0],0);
-spm_smooth(Adult_PS_RVLPFC,Adult_PS_RVLPFC,[0,3,0],0);
+spm_smooth(Adult_AS_RFEF,Adult_AS_RFEF,[0,4,0],0);
+spm_smooth(Adult_AS_LFEF,Adult_AS_LFEF,[0,4,0],0);
+spm_smooth(Adult_AS_RDLPFC,Adult_AS_RDLPFC,[0,4,0],0);
+spm_smooth(Adult_AS_RVLPFC,Adult_AS_RVLPFC,[0,4,0],0);
+spm_smooth(Adult_PS_RFEF,Adult_PS_RFEF,[0,4,0],0);
+spm_smooth(Adult_PS_LFEF,Adult_PS_LFEF,[0,4,0],0);
+spm_smooth(Adult_PS_RDLPFC,Adult_PS_RDLPFC,[0,4,0],0);
+spm_smooth(Adult_PS_RVLPFC,Adult_PS_RVLPFC,[0,4,0],0);
 
-spm_smooth(Teen_AS_RFEF,Teen_AS_RFEF,[0,3,0],0);
-spm_smooth(Teen_AS_LFEF,Teen_AS_LFEF,[0,3,0],0);
-spm_smooth(Teen_AS_RDLPFC,Teen_AS_RDLPFC,[0,3,0],0);
-spm_smooth(Teen_AS_RVLPFC,Teen_AS_RVLPFC,[0,3,0],0);
-spm_smooth(Teen_PS_RFEF,Teen_PS_RFEF,[0,3,0],0);
-spm_smooth(Teen_PS_LFEF,Teen_PS_LFEF,[0,3,0],0);
-spm_smooth(Teen_PS_RDLPFC,Teen_PS_RDLPFC,[0,3,0],0);
-spm_smooth(Teen_PS_RVLPFC,Teen_PS_RVLPFC,[0,3,0],0);
+spm_smooth(Teen_AS_RFEF,Teen_AS_RFEF,[0,4,0],0);
+spm_smooth(Teen_AS_LFEF,Teen_AS_LFEF,[0,4,0],0);
+spm_smooth(Teen_AS_RDLPFC,Teen_AS_RDLPFC,[0,4,0],0);
+spm_smooth(Teen_AS_RVLPFC,Teen_AS_RVLPFC,[0,4,0],0);
+spm_smooth(Teen_PS_RFEF,Teen_PS_RFEF,[0,4,0],0);
+spm_smooth(Teen_PS_LFEF,Teen_PS_LFEF,[0,4,0],0);
+spm_smooth(Teen_PS_RDLPFC,Teen_PS_RDLPFC,[0,4,0],0);
+spm_smooth(Teen_PS_RVLPFC,Teen_PS_RVLPFC,[0,4,0],0);
 %compile data into single structure for permutation
 %recompile data into the following format ROIxpowerxsubject
 
 
-Adult_AS_Power = [Adult_AS_RFEF, Adult_AS_LFEF, Adult_AS_RDLPFC, Adult_AS_RVLPFC ];
-Adult_AS_Power = reshape(Adult_AS_Power,20,30,4);
-Adult_AS_Power = permute(Adult_AS_Power,[3,2,1]);
+Adult_AS_Power(1,1:30,1:20) = [Adult_AS_RFEF]';
+Adult_AS_Power(2,1:30,1:20) = [Adult_AS_LFEF]';
+Adult_AS_Power(3,1:30,1:20) = [Adult_AS_RDLPFC]';
+Adult_AS_Power(4,1:30,1:20) = [Adult_AS_RVLPFC]';
 
-Adult_PS_Power = [Adult_PS_RFEF, Adult_PS_LFEF, Adult_PS_RDLPFC, Adult_PS_RVLPFC];
-Adult_PS_Power = reshape(Adult_PS_Power,20,30,4);
-Adult_PS_Power = permute(Adult_PS_Power,[3,2,1]);
+Adult_PS_Power(1,1:30,1:20) = [Adult_PS_RFEF]';
+Adult_PS_Power(2,1:30,1:20) = [Adult_PS_LFEF]';
+Adult_PS_Power(3,1:30,1:20) = [Adult_PS_RDLPFC]';
+Adult_PS_Power(4,1:30,1:20) = [Adult_PS_RVLPFC]';
 
-Teen_AS_Power = [Teen_AS_RFEF, Teen_AS_LFEF, Teen_AS_RDLPFC, Teen_AS_RVLPFC ];
-Teen_AS_Power = reshape(Teen_AS_Power,17,30,4);
-Teen_AS_Power = permute(Teen_AS_Power,[3,2,1]);
+Teen_AS_Power(1,1:30,1:17) = [Teen_AS_RFEF]';
+Teen_AS_Power(2,1:30,1:17) = [Teen_AS_LFEF]';
+Teen_AS_Power(3,1:30,1:17) = [Teen_AS_RDLPFC]';
+Teen_AS_Power(4,1:30,1:17) = [Teen_AS_RVLPFC]';
 
-Teen_PS_Power = [Teen_PS_RFEF, Teen_PS_LFEF, Teen_PS_RDLPFC, Teen_PS_RVLPFC];
-Teen_PS_Power = reshape(Teen_PS_Power,17,30,4);
-Teen_PS_Power = permute(Teen_PS_Power,[3,2,1]);
+Teen_PS_Power(1,1:30,1:17) = [Teen_PS_RFEF]';
+Teen_PS_Power(2,1:30,1:17) = [Teen_PS_LFEF]';
+Teen_PS_Power(3,1:30,1:17) = [Teen_PS_RDLPFC]';
+Teen_PS_Power(4,1:30,1:17) = [Teen_PS_RVLPFC]';
+%Adult_AS_Power = reshape(Adult_AS_Power,20,30,4);
+%Adult_AS_Power = permute(Adult_AS_Power,[3,2,1]);
+
+%Adult_PS_Power = [Adult_PS_RFEF, Adult_PS_LFEF, Adult_PS_RDLPFC, Adult_PS_RVLPFC];
+%Adult_PS_Power = reshape(Adult_PS_Power,20,30,4);
+%Adult_PS_Power = permute(Adult_PS_Power,[3,2,1]);
+
+%Teen_AS_Power = [Teen_AS_RFEF, Teen_AS_LFEF, Teen_AS_RDLPFC, Teen_AS_RVLPFC]; 
+%Teen_AS_Power = reshape(Teen_AS_Power,17,30,4);
+%Teen_AS_Power = permute(Teen_AS_Power,[3,2,1]);
+
+%Teen_PS_Power = [Teen_PS_RFEF, Teen_PS_LFEF, Teen_PS_RDLPFC, Teen_PS_RVLPFC];
+%Teen_PS_Power = reshape(Teen_PS_Power,17,30,4);
+%Teen_PS_Power = permute(Teen_PS_Power,[3,2,1]);
 
 %find the min cluster stat from permutation
 
-nPerm= 5000;
-[~, df, ~, surrog]=statcond({Adult_AS_Power Adult_PS_Power},'mode','perm','naccu',nPerm);
+nPerm= 1000;
+[~, df, ~, surrog]=statcond({Adult_AS_Power Adult_PS_Power},'mode','permu','naccu',nPerm);
 tVal = icdf('t',0.975,df);
-null_data = reshape(surrog,30,20000);
+null_data = surrog;%reshape(surrog,30,20000);
 
-Null_clusts_mass = zeros(length(null_data),1);
-for n = 1:length(null_data)
-    nd = squeeze(null_data(:,n));
-    null_clusts = bwlabeln(abs(nd)>tVal);
-    null_clust_mass = sum(abs(nd(null_clusts==1)));
-    
-    for j = 2:max(null_clusts)
-        curr_clust_mass = sum(abs(null_data(null_clusts==j)));
-        if curr_clust_mass > null_clust_mass
-            null_clust_mass = curr_clust_mass;
+Null_clusts_mass = zeros(size(surrog,1),length(surrog));
+
+for roi = 1:size(null_data,1)
+    for n = 1:length(null_data)
+        nd = squeeze(null_data(roi,:,n));
+        null_clusts = bwlabeln(abs(nd)>tVal);
+        null_clust_mass = sum(abs(nd(null_clusts==1)));
+        
+        for j = 2:max(null_clusts)
+            curr_clust_mass = sum(abs(nd(null_clusts==j)));
+            if curr_clust_mass > null_clust_mass
+                null_clust_mass = curr_clust_mass;
+            end
         end
+        Null_clusts_mass(roi,n) = null_clust_mass;
     end
-    Null_clusts_mass(n) = null_clust_mass;
 end
+Null_clusts_mass = Null_clusts_mass(:);
+%Null_clusts_mass(Null_clusts_mass==0)=[];
+clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05/18))
 
-clust_stat_threshold = quantile(Null_clusts_mass,1-0.05/8)
+D1=Adult_AS_RFEF;
+D2=Adult_PS_RFEF;
 
-[Stats, df, ~, ~]=statcond({Adult_AS_RFEF' Adult_PS_RFEF'},'mode','perm','naccu',nPerm);
+[Stats, df, ~, ~]=statcond({D1' D2'},'mode','perm','naccu',nPerm);
 %tVal = icdf('t',0.975,df);
 test_clusts = bwlabeln(abs(Stats)>tVal)
 
@@ -90,13 +115,18 @@ for j = 1:max(max(test_clusts))
 end
 Test_stat_clusts_mass
 
+for n =1:length(Test_stat_clusts_mass)
+   P(n)=1-sum(Test_stat_clusts_mass(n) > Null_clusts_mass)/length(Null_clusts_mass);
+    
+end
+P'
+
 %plot
 
 H=figure('visible','on');
 
 %extract data to plot
-D1=Adult_AS_RFEF;
-D2=Adult_PS_RFEF;
+
 
 %script for time frequency grid smoothing
 % note only for developmental comparison we did smoothing.
