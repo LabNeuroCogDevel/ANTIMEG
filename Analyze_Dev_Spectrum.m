@@ -34,7 +34,7 @@ spm_smooth(Adult_PS_RDLPFC_TFR,Adult_PS_RDLPFC_TFR,[2,4,0],0);
 spm_smooth(Teen_PS_RDLPFC_TFR,Teen_PS_RDLPFC_TFR,[2,4,0],0);
 
 spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[2,4,0],0); 
-spm_smooth(Teen_PS_RVLPFC_TFR,Teen_APS_RVLPFC_TFR,[2,4,0],0);
+spm_smooth(Teen_PS_RVLPFC_TFR,Teen_PS_RVLPFC_TFR,[2,4,0],0);
 
 
 %compile data structure
