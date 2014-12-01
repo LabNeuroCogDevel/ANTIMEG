@@ -7,7 +7,7 @@ close all
 load Dev_Spectrum_Data.mat;
 %load Adult_Power_Spectrum;
 %load surrog.mat;
-load test_mat.mat;
+%load test_mat.mat;
 
 % pull data
 %D1 = Adult_AS_FEF_TFR;
@@ -41,11 +41,7 @@ spm_smooth(Teen_PS_LFEF_TFR,Teen_PS_LFEF_TFR,[2,4,0],0);
 spm_smooth(Adult_PS_RDLPFC_TFR,Adult_PS_RDLPFC_TFR,[2,4,0],0);
 spm_smooth(Teen_PS_RDLPFC_TFR,Teen_PS_RDLPFC_TFR,[2,4,0],0);
 
-<<<<<<< HEAD
 spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[2,4,0],0); 
-=======
-spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[2,4,0],0);
->>>>>>> 1628c1b0e50a4352d51fc887701163851f9af6d7
 spm_smooth(Teen_PS_RVLPFC_TFR,Teen_PS_RVLPFC_TFR,[2,4,0],0);
 
 
@@ -81,7 +77,7 @@ for contrasts = 1:3
     Null_clusts_mass = zeros(size(null_data,1),length(null_data));
     
     %Null_clusts_mass = zeros(length(null_data),1);
-    tVal = icdf('f',0.95,1,76);
+    tVal = icdf('f',0.95,df{contrasts}(1),df{contrasts}(2));
     
     % for roi = 1:size(null_data,1)
     %     for n = 1:length(null_data)
@@ -114,6 +110,7 @@ for contrasts = 1:3
         end
         Null_clusts_mass(n) = null_clust_mass;
     end
+    Null_clusts_mass(Null_clusts_mass==0) = inf;%
     Null_clusts_mass = Null_clusts_mass(:);
     clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05/16))
     
