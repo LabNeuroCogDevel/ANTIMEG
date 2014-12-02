@@ -125,9 +125,9 @@ for contrasts = 1:3
         end
         Null_clusts_mass(n) = null_clust_mass;
     end
-    Null_clusts_mass(Null_clusts_mass==0) = inf;%
+    Null_clusts_mass(Null_clusts_mass==0) = [];%
     Null_clusts_mass=Null_clusts_mass(:);
-    clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05/12))
+    clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05))
     
     % cluster statistic test
     
@@ -154,7 +154,7 @@ for contrasts = 1:3
     Ps
     %Ps > Test_stat_clusts_mass
     
-    sig_clust_num = find(Ps<(0.05/16));
+    sig_clust_num = find(Ps<(0.05));
     
     %if any(sig_clust_num)
     %CM=zeros(size(Stats{contrasts}));
