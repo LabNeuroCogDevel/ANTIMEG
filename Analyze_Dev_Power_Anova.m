@@ -14,23 +14,23 @@ close all;
 load Dev_Power_Data
 
 %smooth
-spm_smooth(Adult_AS_RFEF,Adult_AS_RFEF,[0,3,0],0);
-spm_smooth(Adult_AS_LFEF,Adult_AS_LFEF,[0,3,0],0);
-spm_smooth(Adult_AS_RDLPFC,Adult_AS_RDLPFC,[0,3,0],0);
-spm_smooth(Adult_AS_RVLPFC,Adult_AS_RVLPFC,[0,3,0],0);
-spm_smooth(Adult_PS_RFEF,Adult_PS_RFEF,[0,3,0],0);
-spm_smooth(Adult_PS_LFEF,Adult_PS_LFEF,[0,3,0],0);
-spm_smooth(Adult_PS_RDLPFC,Adult_PS_RDLPFC,[0,3,0],0);
-spm_smooth(Adult_PS_RVLPFC,Adult_PS_RVLPFC,[0,3,0],0);
+spm_smooth(Adult_AS_RFEF,Adult_AS_RFEF,[0,1,0],0);
+spm_smooth(Adult_AS_LFEF,Adult_AS_LFEF,[0,1,0],0);
+spm_smooth(Adult_AS_RDLPFC,Adult_AS_RDLPFC,[0,1,0],0);
+spm_smooth(Adult_AS_RVLPFC,Adult_AS_RVLPFC,[0,1,0],0);
+spm_smooth(Adult_PS_RFEF,Adult_PS_RFEF,[0,1,0],0);
+spm_smooth(Adult_PS_LFEF,Adult_PS_LFEF,[0,1,0],0);
+spm_smooth(Adult_PS_RDLPFC,Adult_PS_RDLPFC,[0,1,0],0);
+spm_smooth(Adult_PS_RVLPFC,Adult_PS_RVLPFC,[0,1,0],0);
 
-spm_smooth(Teen_AS_RFEF,Teen_AS_RFEF,[0,3,0],0);
-spm_smooth(Teen_AS_LFEF,Teen_AS_LFEF,[0,3,0],0);
-spm_smooth(Teen_AS_RDLPFC,Teen_AS_RDLPFC,[0,3,0],0);
-spm_smooth(Teen_AS_RVLPFC,Teen_AS_RVLPFC,[0,3,0],0);
-spm_smooth(Teen_PS_RFEF,Teen_PS_RFEF,[0,3,0],0);
-spm_smooth(Teen_PS_LFEF,Teen_PS_LFEF,[0,3,0],0);
-spm_smooth(Teen_PS_RDLPFC,Teen_PS_RDLPFC,[0,3,0],0);
-spm_smooth(Teen_PS_RVLPFC,Teen_PS_RVLPFC,[0,3,0],0);
+spm_smooth(Teen_AS_RFEF,Teen_AS_RFEF,[0,1,0],0);
+spm_smooth(Teen_AS_LFEF,Teen_AS_LFEF,[0,1,0],0);
+spm_smooth(Teen_AS_RDLPFC,Teen_AS_RDLPFC,[0,1,0],0);
+spm_smooth(Teen_AS_RVLPFC,Teen_AS_RVLPFC,[0,1,0],0);
+spm_smooth(Teen_PS_RFEF,Teen_PS_RFEF,[0,1,0],0);
+spm_smooth(Teen_PS_LFEF,Teen_PS_LFEF,[0,1,0],0);
+spm_smooth(Teen_PS_RDLPFC,Teen_PS_RDLPFC,[0,1,0],0);
+spm_smooth(Teen_PS_RVLPFC,Teen_PS_RVLPFC,[0,1,0],0);
 %compile data into single structure for permutation
 %recompile data into the following format ROIxpowerxsubject
 
@@ -82,7 +82,7 @@ D4 = (Teen_PS_RFEF' + Teen_PS_LFEF')/2;
 %D3 = Teen_AS_RDLPFC';
 %D4 = Teen_PS_RDLPFC';
 
-[Stats, df, ps, surrog] = statcond({D1 D2; D3, D4},'mode','permu','naccu',nPerm);
+[Stats, df, ps, surrog] = statcond({Adult_AS_RFEF', Adult_PS_RFEF'; Teen_AS_RFEF', Teen_PS_RFEF'},'mode','permu','naccu',nPerm);
 
 
 for contrasts = 1:3
@@ -125,9 +125,9 @@ for contrasts = 1:3
         end
         Null_clusts_mass(n) = null_clust_mass;
     end
-    Null_clusts_mass(Null_clusts_mass==0) = [];%
+    Null_clusts_mass(Null_clusts_mass==0) = 0;%
     Null_clusts_mass=Null_clusts_mass(:);
-    clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05))
+    clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05)/16)
     
     % cluster statistic test
     
@@ -154,7 +154,7 @@ for contrasts = 1:3
     Ps
     %Ps > Test_stat_clusts_mass
     
-    sig_clust_num = find(Ps<(0.05));
+    sig_clust_num = find(Ps<(0.05)/16);
     
     %if any(sig_clust_num)
     %CM=zeros(size(Stats{contrasts}));
