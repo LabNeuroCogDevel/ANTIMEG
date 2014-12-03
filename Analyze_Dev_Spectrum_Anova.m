@@ -4,7 +4,7 @@
 
 clear all
 close all
-load Dev_Spectrum_Data.mat;
+load Dev_Spectrum.mat;
 %load Adult_Power_Spectrum;
 %load surrog.mat;
 %load test_mat.mat;
@@ -14,35 +14,35 @@ load Dev_Spectrum_Data.mat;
 %D2 = Teen_AS_FEF_TFR;
 
 %smooth data to facilitate group comparison
-spm_smooth(Adult_AS_FEF_TFR,Adult_AS_FEF_TFR,[2,4,0],0);
-spm_smooth(Teen_AS_FEF_TFR,Teen_AS_FEF_TFR,[2,4,0],0);
-
-spm_smooth(Adult_AS_RFEF_TFR,Adult_AS_RFEF_TFR,[2,4,0],0);
-spm_smooth(Teen_AS_RFEF_TFR,Teen_AS_RFEF_TFR,[2,4,0],0);
-
-spm_smooth(Adult_AS_LFEF_TFR,Adult_AS_LFEF_TFR,[2,4,0],0);
-spm_smooth(Teen_AS_LFEF_TFR,Teen_AS_LFEF_TFR,[2,4,0],0);
-
-spm_smooth(Adult_AS_RDLPFC_TFR,Adult_AS_RDLPFC_TFR,[2,4,0],0);
-spm_smooth(Teen_AS_RDLPFC_TFR,Teen_AS_RDLPFC_TFR,[2,4,0],0);
-
-spm_smooth(Adult_AS_RVLPFC_TFR,Adult_AS_RVLPFC_TFR,[2,4,0],0);
-spm_smooth(Teen_AS_RVLPFC_TFR,Teen_AS_RVLPFC_TFR,[2,4,0],0);
-
-spm_smooth(Adult_PS_FEF_TFR,Adult_PS_FEF_TFR,[2,4,0],0);
-spm_smooth(Teen_PS_FEF_TFR,Teen_PS_FEF_TFR,[2,4,0],0);
-
-spm_smooth(Adult_PS_RFEF_TFR,Adult_PS_RFEF_TFR,[2,4,0],0);
-spm_smooth(Teen_PS_RFEF_TFR,Teen_PS_RFEF_TFR,[2,4,0],0);
-
-spm_smooth(Adult_PS_LFEF_TFR,Adult_PS_LFEF_TFR,[2,4,0],0);
-spm_smooth(Teen_PS_LFEF_TFR,Teen_PS_LFEF_TFR,[2,4,0],0);
-
-spm_smooth(Adult_PS_RDLPFC_TFR,Adult_PS_RDLPFC_TFR,[2,4,0],0);
-spm_smooth(Teen_PS_RDLPFC_TFR,Teen_PS_RDLPFC_TFR,[2,4,0],0);
-
-spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[2,4,0],0); 
-spm_smooth(Teen_PS_RVLPFC_TFR,Teen_PS_RVLPFC_TFR,[2,4,0],0);
+% spm_smooth(Adult_AS_FEF_TFR,Adult_AS_FEF_TFR,[2,2,0],0);
+% spm_smooth(Teen_AS_FEF_TFR,Teen_AS_FEF_TFR,[2,2,0],0);
+% 
+% spm_smooth(Adult_AS_RFEF_TFR,Adult_AS_RFEF_TFR,[2,2,0],0);
+% spm_smooth(Teen_AS_RFEF_TFR,Teen_AS_RFEF_TFR,[2,2,0],0);
+% 
+% spm_smooth(Adult_AS_LFEF_TFR,Adult_AS_LFEF_TFR,[2,2,0],0);
+% spm_smooth(Teen_AS_LFEF_TFR,Teen_AS_LFEF_TFR,[2,2,0],0);
+% 
+% spm_smooth(Adult_AS_RDLPFC_TFR,Adult_AS_RDLPFC_TFR,[2,2,0],0);
+% spm_smooth(Teen_AS_RDLPFC_TFR,Teen_AS_RDLPFC_TFR,[2,2,0],0);
+% 
+% spm_smooth(Adult_AS_RVLPFC_TFR,Adult_AS_RVLPFC_TFR,[2,2,0],0);
+% spm_smooth(Teen_AS_RVLPFC_TFR,Teen_AS_RVLPFC_TFR,[2,2,0],0);
+% 
+% spm_smooth(Adult_PS_FEF_TFR,Adult_PS_FEF_TFR,[2,2,0],0);
+% spm_smooth(Teen_PS_FEF_TFR,Teen_PS_FEF_TFR,[2,2,0],0);
+% 
+% spm_smooth(Adult_PS_RFEF_TFR,Adult_PS_RFEF_TFR,[2,2,0],0);
+% spm_smooth(Teen_PS_RFEF_TFR,Teen_PS_RFEF_TFR,[2,2,0],0);
+% 
+% spm_smooth(Adult_PS_LFEF_TFR,Adult_PS_LFEF_TFR,[2,2,0],0);
+% spm_smooth(Teen_PS_LFEF_TFR,Teen_PS_LFEF_TFR,[2,2,0],0);
+% 
+% spm_smooth(Adult_PS_RDLPFC_TFR,Adult_PS_RDLPFC_TFR,[2,2,0],0);
+% spm_smooth(Teen_PS_RDLPFC_TFR,Teen_PS_RDLPFC_TFR,[2,2,0],0);
+% 
+% spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[2,2,0],0); 
+% spm_smooth(Teen_PS_RVLPFC_TFR,Teen_PS_RVLPFC_TFR,[2,2,0],0);
 
 
 %compile data structure
@@ -68,7 +68,7 @@ Teen_PS_TFR(4,:,:,:) = Teen_PS_RVLPFC_TFR;
 
 %stats....
 nPerm = 1000;
-[Stats, df, ps, surrog]=statcond({Adult_AS_FEF_TFR, Adult_PS_FEF_TFR ; Teen_AS_FEF_TFR, Teen_PS_FEF_TFR},'mode','bootstrap','naccu',nPerm);
+[Stats, df, ps, surrog]=statcond({Adult_AS_RDLPFC_TFR, Adult_PS_RDLPFC_TFR ; Teen_AS_RDLPFC_TFR, Teen_PS_RDLPFC_TFR},'mode','bootstrap','naccu',nPerm);
 
 for contrasts = 1:3
     
@@ -110,9 +110,9 @@ for contrasts = 1:3
         end
         Null_clusts_mass(n) = null_clust_mass;
     end
-    Null_clusts_mass(Null_clusts_mass==0) = [];%
+    Null_clusts_mass(Null_clusts_mass==0) = 0;%
     Null_clusts_mass = Null_clusts_mass(:);
-    clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05/4))
+    clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05/16))
     
     % cluster statistic test
     
@@ -158,6 +158,12 @@ end
 %[~, ~, ~, ~, ~, ~, Surog2] = MEG_Cluster_Stats_th(D1,D2,1000,.0021); % bonferonni corrected
 %[~, ~, ~, ~, ~, ~, Surog3] = MEG_Cluster_Stats_th(D1,D2,1000,.0021); % bonferonni corrected
 
+figure;
+shadedErrorBar(CTime,squeeze(mean(Adult_AS_RDLPFC_TFR(9:16,:,:)))',{@mean,@ste},{'-','LineWidth',4,'Color',rgb('red')},1);
+hold on
+shadedErrorBar(CTime,squeeze(mean(Adult_PS_RDLPFC_TFR(9:16,:,:)))',{@mean,@ste},{'-','LineWidth',4,'Color',rgb('blue')},1);
+shadedErrorBar(CTime,squeeze(mean(Teen_AS_RDLPFC_TFR(9:16,:,:)))',{@mean,@ste},{'--','LineWidth',4,'Color',rgb('red')},1);
+shadedErrorBar(CTime,squeeze(mean(Teen_PS_RDLPFC_TFR(9:16,:,:)))',{@mean,@ste},{'--','LineWidth',4,'Color',rgb('blue')},1);
 
 %% plot data
 %
