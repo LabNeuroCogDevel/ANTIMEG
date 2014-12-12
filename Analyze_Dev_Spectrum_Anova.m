@@ -70,102 +70,102 @@ Teen_PS_TFR(4,:,:,:) = Teen_PS_RVLPFC_TFR;
 nPerm = 1000;
 criticalP = 0.05/12;
 
-[Stats, df, ps, surrog] ...
-    =statcond({Adult_AS_RDLPFC_TFR, Adult_PS_RDLPFC_TFR ; Teen_AS_RDLPFC_TFR, Teen_PS_RDLPFC_TFR}, ...
-    'mode','bootstrap','naccu',nPerm);
-
-for contrasts = 1:3
-    
-    null_data = surrog{contrasts}; %reshape(surrog,30,20000);
-    
-    Null_clusts_mass = zeros(size(null_data,1),length(null_data));
-    
-    %Null_clusts_mass = zeros(length(null_data),1);
-    tVal = icdf('f',0.975,df{contrasts}(1),df{contrasts}(2));
-    
-    % for roi = 1:size(null_data,1)
-    %     for n = 1:length(null_data)
-    %         nd = squeeze(null_data(roi,:,:,n));
-    %         null_clusts = bwlabeln(abs(nd)>tVal);
-    %         null_clust_mass = sum(abs(nd(null_clusts==1)));
-    %
-    %         for j = 2:max(null_clusts)
-    %             curr_clust_mass = sum(abs(nd(null_clusts==j)));
-    %             if curr_clust_mass > null_clust_mass
-    %                 null_clust_mass = curr_clust_mass;
-    %             end
-    %         end
-    %         Null_clusts_mass(roi,n) = null_clust_mass;
-    %     end
-    % end
-    
-    
-    
-    for n = 1:length(null_data)
-        nd = squeeze(null_data(:,:,n));
-        null_clusts = bwlabeln(abs(nd)>tVal);
-        null_clust_mass = sum(abs(nd(null_clusts==1)));
-        
-        for j = 2:max(null_clusts)
-            curr_clust_mass = sum(abs(nd(null_clusts==j)));
-            if curr_clust_mass > null_clust_mass
-                null_clust_mass = curr_clust_mass;
-            end
-        end
-        Null_clusts_mass(n) = null_clust_mass;
-    end
-    Null_clusts_mass(Null_clusts_mass==0) = [];%
-    Null_clusts_mass = Null_clusts_mass(:);
-    clust_stat_threshold = quantile(Null_clusts_mass,1-criticalP)
-    
-    % cluster statistic test
-    
-    %D1 = Adult_AS_FEF_TFR;
-    %D2 = Adult_PS_FEF_TFR;
-    
-    %[Stats, df, ~, ~]=statcond({D1 D2},'mode','perm','naccu',nPerm);
-    
-    test_clusts = bwlabeln(abs(Stats{contrasts})>tVal);
-    Test_stat_clusts_mass = zeros(max(max(test_clusts)),1);
-    for j = 1:max(max(test_clusts))
-        Test_stat_clusts_mass(j) = sum(abs(Stats{contrasts}(test_clusts==j)));
-        %if curr_clust_mass>test_clusts_mass
-        %    test_clusts_mass = curr_clust_mass
-        %end
-    end
-    %Test_stat_clusts_mass
-    
-    Ps=[];
-    for n =1:length(Test_stat_clusts_mass)
-        Ps(n)=1-sum(Test_stat_clusts_mass(n) > Null_clusts_mass)/length(Null_clusts_mass);
-        
-    end
-    %Ps%
-    %Ps > Test_stat_clusts_mass
-    
-    sig_clust_num = find(Ps<criticalP)
-    Ps(sig_clust_num)
-    %if any(sig_clust_num)
-    CM=zeros(size(Stats{contrasts}));
-    for i=1:length(sig_clust_num)
-        tempclust = test_clusts==sig_clust_num(i);
-        CM=CM+tempclust;
-        
-    end
-    figure;
-    Data=Stats{contrasts}.*(CM);
-    pcolor(CTime,FOIs,double(Data));colormap hot; caxis([0 25]); shading flat; y=colorbar; ylabel(y, '\itF', 'FontSize', 20);
-    line([-1.5,-1.5],[2,60],'LineStyle', '-','LineWidth',2,'Color','w');
-    line([0,0],[2,60],'LineStyle', '--','LineWidth',2,'Color','w');
-    set(gca,'FontSize',20,'box','on','XGrid','off','YGrid','off');
-    set(gcf,'Renderer','openGL');
-    ylabel('Hz','FontSize',20);
-    axis square;
-    set(gca, 'LooseInset', [0,0,0,0]);
-    set(gca, 'Color', 'white');
-    %export_fig Interac_RFEF.tiff -m4 -transparent
-    %end
-end
+% [Stats, df, ps, surrog] ...
+%     =statcond({Adult_AS_FEF_TFR, Adult_PS_FEF_TFR ; Teen_AS_FEF_TFR, Teen_PS_FEF_TFR}, ...
+%     'mode','bootstrap','naccu',nPerm);
+% 
+% for contrasts = 1:3
+%     
+%     null_data = surrog{contrasts}; %reshape(surrog,30,20000);
+%     
+%     Null_clusts_mass = zeros(size(null_data,1),length(null_data));
+%     
+%     %Null_clusts_mass = zeros(length(null_data),1);
+%     tVal = icdf('f',0.975,df{contrasts}(1),df{contrasts}(2));
+%     
+%     % for roi = 1:size(null_data,1)
+%     %     for n = 1:length(null_data)
+%     %         nd = squeeze(null_data(roi,:,:,n));
+%     %         null_clusts = bwlabeln(abs(nd)>tVal);
+%     %         null_clust_mass = sum(abs(nd(null_clusts==1)));
+%     %
+%     %         for j = 2:max(null_clusts)
+%     %             curr_clust_mass = sum(abs(nd(null_clusts==j)));
+%     %             if curr_clust_mass > null_clust_mass
+%     %                 null_clust_mass = curr_clust_mass;
+%     %             end
+%     %         end
+%     %         Null_clusts_mass(roi,n) = null_clust_mass;
+%     %     end
+%     % end
+%     
+%     
+%     
+%     for n = 1:length(null_data)
+%         nd = squeeze(null_data(:,:,n));
+%         null_clusts = bwlabeln(abs(nd)>tVal);
+%         null_clust_mass = sum(abs(nd(null_clusts==1)));
+%         
+%         for j = 2:max(null_clusts)
+%             curr_clust_mass = sum(abs(nd(null_clusts==j)));
+%             if curr_clust_mass > null_clust_mass
+%                 null_clust_mass = curr_clust_mass;
+%             end
+%         end
+%         Null_clusts_mass(n) = null_clust_mass;
+%     end
+%     Null_clusts_mass(Null_clusts_mass==0) = [];%
+%     Null_clusts_mass = Null_clusts_mass(:);
+%     clust_stat_threshold = quantile(Null_clusts_mass,1-criticalP)
+%     
+%     % cluster statistic test
+%     
+%     %D1 = Adult_AS_FEF_TFR;
+%     %D2 = Adult_PS_FEF_TFR;
+%     
+%     %[Stats, df, ~, ~]=statcond({D1 D2},'mode','perm','naccu',nPerm);
+%     
+%     test_clusts = bwlabeln(abs(Stats{contrasts})>tVal);
+%     Test_stat_clusts_mass = zeros(max(max(test_clusts)),1);
+%     for j = 1:max(max(test_clusts))
+%         Test_stat_clusts_mass(j) = sum(abs(Stats{contrasts}(test_clusts==j)));
+%         %if curr_clust_mass>test_clusts_mass
+%         %    test_clusts_mass = curr_clust_mass
+%         %end
+%     end
+%     %Test_stat_clusts_mass
+%     
+%     Ps=[];
+%     for n =1:length(Test_stat_clusts_mass)
+%         Ps(n)=1-sum(Test_stat_clusts_mass(n) > Null_clusts_mass)/length(Null_clusts_mass);
+%         
+%     end
+%     %Ps%
+%     %Ps > Test_stat_clusts_mass
+%     
+%     sig_clust_num = find(Ps<criticalP)
+%     Ps(sig_clust_num)
+%     %if any(sig_clust_num)
+%     CM=zeros(size(Stats{contrasts}));
+%     for i=1:length(sig_clust_num)
+%         tempclust = test_clusts==sig_clust_num(i);
+%         CM=CM+tempclust;
+%         
+%     end
+%     figure;
+%     Data=Stats{contrasts}.*(CM);
+%     pcolor(CTime,FOIs,double(Data));colormap hot; caxis([0 25]); shading flat; y=colorbar; ylabel(y, '\itF', 'FontSize', 20);
+%     line([-1.5,-1.5],[2,60],'LineStyle', '-','LineWidth',2,'Color','w');
+%     line([0,0],[2,60],'LineStyle', '--','LineWidth',2,'Color','w');
+%     set(gca,'FontSize',20,'box','on','XGrid','off','YGrid','off');
+%     set(gcf,'Renderer','openGL');
+%     ylabel('Hz','FontSize',20);
+%     axis square;
+%     set(gca, 'LooseInset', [0,0,0,0]);
+%     set(gca, 'Color', 'white');
+%     %export_fig Interac_RFEF.tiff -m4 -transparent
+%     %end
+% end
 %[S, C, ~, SM, CP, SP, ~] = MEG_Cluster_Stats_th(D1,D2,1000,.0021); % bonferonni corrected
 %[~, ~, ~, ~, ~, ~, Surog1] = MEG_Cluster_Stats_th(Adult_AS_FEF_TFR,Teen_AS_FEF_TFR,1000,.0021); % bonferonni corrected
 %[~, ~, ~, ~, ~, ~, Surog2] = MEG_Cluster_Stats_th(D1,D2,1000,.0021); % bonferonni corrected
@@ -174,11 +174,11 @@ end
 alpha = 5:9;
 beta = 10:16; 
 figure;
-H1=shadedErrorBar(CTime,squeeze(mean(Adult_AS_RDLPFC_TFR(alpha,:,:)))',{@mean,@ste},{'-','LineWidth',4,'Color',rgb('red')},1);
+H1=shadedErrorBar(CTime,squeeze(mean(Adult_AS_FEF_TFR(alpha,:,:)))',{@mean,@ste},{'-','LineWidth',4,'Color',rgb('red')},1);
 hold on
-H2=shadedErrorBar(CTime,squeeze(mean(Adult_PS_RDLPFC_TFR(alpha,:,:)))',{@mean,@ste},{'-','LineWidth',4,'Color',rgb('blue')},1);
-H3=shadedErrorBar(CTime,squeeze(mean(Teen_AS_RDLPFC_TFR(alpha,:,:)))',{@mean,@ste},{'--','LineWidth',4,'Color',rgb('red')},1);
-H4=shadedErrorBar(CTime,squeeze(mean(Teen_PS_RDLPFC_TFR(alpha,:,:)))',{@mean,@ste},{'--','LineWidth',4,'Color',rgb('blue')},1);
+H2=shadedErrorBar(CTime,squeeze(mean(Adult_PS_FEF_TFR(alpha,:,:)))',{@mean,@ste},{'-','LineWidth',4,'Color',rgb('blue')},1);
+H3=shadedErrorBar(CTime,squeeze(mean(Teen_AS_FEF_TFR(alpha,:,:)))',{@mean,@ste},{'--','LineWidth',4,'Color',rgb('red')},1);
+H4=shadedErrorBar(CTime,squeeze(mean(Teen_PS_FEF_TFR(alpha,:,:)))',{@mean,@ste},{'--','LineWidth',4,'Color',rgb('blue')},1);
 %hl=legend([H1.mainLine,H2.mainLine,H3.mainLine, H4.mainLine ],'Adult AS ','Adult PS', 'Adolescent AS','Adolescent PS','Location','North' );
 %set(hl,'FontSize', 24, 'Box','off');
 %legend boxoff
@@ -198,37 +198,39 @@ axis square
 
 %do stats
 [ Stats, Clusters, Clust_Masks, Sig_Mask, Clust_Pvals,Sig_Pvals, Null_clusts_mass ]...
-    = MEG_Cluster_Stats_th( squeeze(mean(Adult_AS_RDLPFC_TFR(beta,:,:))), squeeze(mean(Adult_PS_RDLPFC_TFR(beta,:,:))), 1000, .05);
+    = MEG_Cluster_Stats_th( squeeze(mean(Adult_AS_FEF_TFR(alpha,:,:))), squeeze(mean(Adult_PS_FEF_TFR(alpha,:,:))), 1000, .05);
 %
 if any(Sig_Pvals)
     [si,ei] = find_con(Sig_Mask);
     for i=1:length(si)
-        line([CTime(si(i)),CTime(ei(i))],[45 45],'LineStyle', '-','LineWidth',2,'Color',rgb('gray'));
+        h1 = line([CTime(si(i)),CTime(ei(i))],[45 45],'LineStyle', '-','LineWidth',8,'Color',rgb('gray'));
     end
     
 end
 
 [ Stats, Clusters, Clust_Masks, Sig_Mask, Clust_Pvals,Sig_Pvals, Null_clusts_mass ]...
-    = MEG_Cluster_Stats_th( squeeze(mean(Adult_AS_RDLPFC_TFR(beta,:,:))), squeeze(mean(Teen_AS_RDLPFC_TFR(beta,:,:))), 1000, .05);
+    = MEG_Cluster_Stats_th( squeeze(mean(Adult_AS_FEF_TFR(alpha,:,:))), squeeze(mean(Teen_AS_FEF_TFR(alpha,:,:))), 1000, .05);
 %
 if any(Sig_Pvals)
     [si,ei] = find_con(Sig_Mask);
     for i=1:length(si)
-        line([CTime(si(i)),CTime(ei(i))],[50 50],'LineStyle', '-','LineWidth',2,'Color',rgb('black'));
+        h3 = line([CTime(si(i)),CTime(ei(i))],[50 50],'LineStyle', '-','LineWidth',8,'Color',rgb('black'));
     end
     
 end
 
 [ Stats, Clusters, Clust_Masks, Sig_Mask, Clust_Pvals,Sig_Pvals, Null_clusts_mass ]...
-    = MEG_Cluster_Stats_th( squeeze(mean(Teen_AS_RDLPFC_TFR(beta,:,:))), squeeze(mean(Teen_PS_RDLPFC_TFR(beta,:,:))), 1000, .05);
+    = MEG_Cluster_Stats_th( squeeze(mean(Teen_AS_FEF_TFR(alpha,:,:))), squeeze(mean(Teen_PS_FEF_TFR(alpha,:,:))), 1000, .05);
 %
 if any(Sig_Pvals)
     [si,ei] = find_con(Sig_Mask);
     for i=1:length(si)
-        line([CTime(si(i)),CTime(ei(i))],[40 40],'LineStyle', '-','LineWidth',2,'Color',rgb('light gray'));
+        h2 = line([CTime(si(i)),CTime(ei(i))],[40 40],'LineStyle', '-','LineWidth',8,'Color',rgb('light gray'));
     end
     
 end
+hl=legend([h1, h2, h3 ],'Adult: AS > PS', 'Adolescent: AS > PS','AS: Adult > Adolescent','Location','BestOutside' );
+set(hl,'FontSize', 24, 'Box','off')
 %set(gca, 'LooseInset', [0,0,0,0]);
 set(gca, 'Color', 'white');
 %export_fig('test.png', '-r600,''-opengl');
