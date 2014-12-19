@@ -59,7 +59,7 @@ for i =1:length(binEdges)-1
     xv = [xv,mean(binEdges(i:i+1))];
 end
 hold on
-h1=plot(xv,binMean(1:end),'ok','MarkerSize',15,'LineWidth',2);
+h1=plot(xv,binMean(1:end),'ok','MarkerSize',15,'LineWidth',2,'MarkerFaceColor', 'black');
 xlim([-60 60])
 %print(gcf, 'FEF_Alpha_Brain_Behavior', '-dtiff  ', '-r600')
 
@@ -78,7 +78,7 @@ for i =1:length(binEdges)-1
     xv = [xv,mean(binEdges(i:i+1))];
 end
 hold on
-h2=plot(xv,binMean(1:end),'*k','MarkerSize',15,'LineWidth',2);
+h2=plot(xv,binMean(1:end),'ok','MarkerSize',15,'LineWidth',2);
 xlim([-60 60])
 ylim([.5 1])
 xlabel('alpha power % signal change','FontSize',25)
@@ -93,5 +93,6 @@ legend BOXOFF
 set(gca, 'Box','off');
 hold off
 set(gcf, 'Color', 'white');
-export_fig Dev_Logit.tiff -m4 -painters
+set(gcf,'Renderer','openGL');
+%export_fig Dev_Logit.tiff -m4 -painters
 

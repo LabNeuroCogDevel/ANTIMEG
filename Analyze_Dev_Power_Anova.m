@@ -125,7 +125,7 @@ for contrasts = 1:3
         end
         Null_clusts_mass(n) = null_clust_mass;
     end
-    Null_clusts_mass(Null_clusts_mass==0) = 0;%
+    Null_clusts_mass(Null_clusts_mass==0) = inf;%
     Null_clusts_mass=Null_clusts_mass(:);
     clust_stat_threshold = quantile(Null_clusts_mass,1-(0.05)/16)
     
