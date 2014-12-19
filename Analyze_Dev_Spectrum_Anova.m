@@ -14,35 +14,35 @@ load Dev_Spectrum.mat;
 %D2 = Teen_AS_FEF_TFR;
 
 %smooth data to facilitate group comparison
-spm_smooth(Adult_AS_FEF_TFR,Adult_AS_FEF_TFR,[1,2,0],0);
-spm_smooth(Teen_AS_FEF_TFR,Teen_AS_FEF_TFR,[1,2,0],0);
+spm_smooth(Adult_AS_FEF_TFR,Adult_AS_FEF_TFR,[0,2,1],0);
+spm_smooth(Teen_AS_FEF_TFR,Teen_AS_FEF_TFR,[0,2,1],0);
 
-spm_smooth(Adult_AS_RFEF_TFR,Adult_AS_RFEF_TFR,[1,2,0],0);
-spm_smooth(Teen_AS_RFEF_TFR,Teen_AS_RFEF_TFR,[1,2,0],0);
+spm_smooth(Adult_AS_RFEF_TFR,Adult_AS_RFEF_TFR,[0,2,1],0);
+spm_smooth(Teen_AS_RFEF_TFR,Teen_AS_RFEF_TFR,[0,2,1],0);
 
-spm_smooth(Adult_AS_LFEF_TFR,Adult_AS_LFEF_TFR,[1,2,0],0);
-spm_smooth(Teen_AS_LFEF_TFR,Teen_AS_LFEF_TFR,[1,2,0],0);
+spm_smooth(Adult_AS_LFEF_TFR,Adult_AS_LFEF_TFR,[0,2,1],0);
+spm_smooth(Teen_AS_LFEF_TFR,Teen_AS_LFEF_TFR,[0,2,1],0);
 
-spm_smooth(Adult_AS_RDLPFC_TFR,Adult_AS_RDLPFC_TFR,[1,2,0],0);
-spm_smooth(Teen_AS_RDLPFC_TFR,Teen_AS_RDLPFC_TFR,[1,2,0],0);
+spm_smooth(Adult_AS_RDLPFC_TFR,Adult_AS_RDLPFC_TFR,[0,2,1],0);
+spm_smooth(Teen_AS_RDLPFC_TFR,Teen_AS_RDLPFC_TFR,[0,2,1],0);
 
-spm_smooth(Adult_AS_RVLPFC_TFR,Adult_AS_RVLPFC_TFR,[1,2,0],0);
-spm_smooth(Teen_AS_RVLPFC_TFR,Teen_AS_RVLPFC_TFR,[1,2,0],0);
+spm_smooth(Adult_AS_RVLPFC_TFR,Adult_AS_RVLPFC_TFR,[0,2,1],0);
+spm_smooth(Teen_AS_RVLPFC_TFR,Teen_AS_RVLPFC_TFR,[0,2,1],0);
 
-spm_smooth(Adult_PS_FEF_TFR,Adult_PS_FEF_TFR,[1,2,0],0);
-spm_smooth(Teen_PS_FEF_TFR,Teen_PS_FEF_TFR,[1,2,0],0);
+spm_smooth(Adult_PS_FEF_TFR,Adult_PS_FEF_TFR,[0,2,1],0);
+spm_smooth(Teen_PS_FEF_TFR,Teen_PS_FEF_TFR,[0,2,1],0);
 
-spm_smooth(Adult_PS_RFEF_TFR,Adult_PS_RFEF_TFR,[1,2,0],0);
-spm_smooth(Teen_PS_RFEF_TFR,Teen_PS_RFEF_TFR,[1,2,0],0);
+spm_smooth(Adult_PS_RFEF_TFR,Adult_PS_RFEF_TFR,[0,2,1],0);
+spm_smooth(Teen_PS_RFEF_TFR,Teen_PS_RFEF_TFR,[0,2,1],0);
 
-spm_smooth(Adult_PS_LFEF_TFR,Adult_PS_LFEF_TFR,[1,2,0],0);
-spm_smooth(Teen_PS_LFEF_TFR,Teen_PS_LFEF_TFR,[1,2,0],0);
+spm_smooth(Adult_PS_LFEF_TFR,Adult_PS_LFEF_TFR,[0,2,1],0);
+spm_smooth(Teen_PS_LFEF_TFR,Teen_PS_LFEF_TFR,[0,2,1],0);
 
-spm_smooth(Adult_PS_RDLPFC_TFR,Adult_PS_RDLPFC_TFR,[1,2,0],0);
-spm_smooth(Teen_PS_RDLPFC_TFR,Teen_PS_RDLPFC_TFR,[1,2,0],0);
+spm_smooth(Adult_PS_RDLPFC_TFR,Adult_PS_RDLPFC_TFR,[0,2,1],0);
+spm_smooth(Teen_PS_RDLPFC_TFR,Teen_PS_RDLPFC_TFR,[0,2,1],0);
 
-spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[1,2,0],0); 
-spm_smooth(Teen_PS_RVLPFC_TFR,Teen_PS_RVLPFC_TFR,[1,2,0],0);
+spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[0,2,1],0); 
+spm_smooth(Teen_PS_RVLPFC_TFR,Teen_PS_RVLPFC_TFR,[0,2,1],0);
 
 
 %compile data structure
@@ -67,11 +67,16 @@ Teen_PS_TFR(3,:,:,:) = Teen_PS_RDLPFC_TFR;
 Teen_PS_TFR(4,:,:,:) = Teen_PS_RVLPFC_TFR;
 
 %stats....
-nPerm = 1000;
+nPerm = 4000;
 criticalP = 0.05/12;
 
+D1 = Adult_AS_RDLPFC_TFR;
+D2 = Adult_PS_RDLPFC_TFR;
+D3 = Teen_AS_RDLPFC_TFR;
+D4 = Teen_PS_RDLPFC_TFR;
+
 [Stats, df, ps, surrog] ...
-    =statcond({Adult_AS_RDLPFC_TFR, Adult_PS_RDLPFC_TFR ; Teen_AS_RDLPFC_TFR, Teen_PS_RDLPFC_TFR}, ...
+    =statcond({D1, D2 ; D3, D4}, ...
     'mode','bootstrap','naccu',nPerm);
 
 for contrasts = 1:3
@@ -154,7 +159,8 @@ for contrasts = 1:3
     end
     figure;
     Data=Stats{contrasts}.*(CM);
-    pcolor(CTime,FOIs,double(Data));colormap hot; caxis([0 25]); shading flat; y=colorbar; ylabel(y, '\itF', 'FontSize', 20);
+    pcolor(CTime,FOIs,double(Data));colormap summer; ...
+        caxis([0 25]); shading flat; y=colorbar; ylabel(y, '\itF', 'FontSize', 20);
     line([-1.5,-1.5],[2,60],'LineStyle', '-','LineWidth',2,'Color','w');
     line([0,0],[2,60],'LineStyle', '--','LineWidth',2,'Color','w');
     set(gca,'FontSize',20,'box','on','XGrid','off','YGrid','off');
@@ -174,11 +180,11 @@ end
 alpha = 5:9;
 beta = 10:16; 
 figure;
-H1=shadedErrorBar(CTime,squeeze(mean(Adult_AS_RDLPFC_TFR(alpha,:,:)))',{@mean,@ste},{'-','LineWidth',4,'Color',rgb('red')},1);
+H1=shadedErrorBar(CTime,squeeze(mean(D1(beta,:,:)))',{@mean,@ste},{'-','LineWidth',4,'Color',rgb('red')},1);
 hold on
-H2=shadedErrorBar(CTime,squeeze(mean(Adult_PS_RDLPFC_TFR(alpha,:,:)))',{@mean,@ste},{'-','LineWidth',4,'Color',rgb('blue')},1);
-H3=shadedErrorBar(CTime,squeeze(mean(Teen_AS_RDLPFC_TFR(alpha,:,:)))',{@mean,@ste},{'--','LineWidth',4,'Color',rgb('red')},1);
-H4=shadedErrorBar(CTime,squeeze(mean(Teen_PS_RDLPFC_TFR(alpha,:,:)))',{@mean,@ste},{'--','LineWidth',4,'Color',rgb('blue')},1);
+H2=shadedErrorBar(CTime,squeeze(mean(D2(beta,:,:)))',{@mean,@ste},{'-','LineWidth',4,'Color',rgb('blue')},1);
+H3=shadedErrorBar(CTime,squeeze(mean(D3(beta,:,:)))',{@mean,@ste},{'--','LineWidth',4,'Color',rgb('red')},1);
+H4=shadedErrorBar(CTime,squeeze(mean(D4(beta,:,:)))',{@mean,@ste},{'--','LineWidth',4,'Color',rgb('blue')},1);
 %hl=legend([H1.mainLine,H2.mainLine,H3.mainLine, H4.mainLine ],'Adult AS ','Adult PS', 'Adolescent AS','Adolescent PS','Location','North' );
 %set(hl,'FontSize', 24, 'Box','off');
 %legend boxoff
@@ -198,7 +204,7 @@ axis square
 
 %do stats
 [ Stats, Clusters, Clust_Masks, Sig_Mask, Clust_Pvals,Sig_Pvals, Null_clusts_mass ]...
-    = MEG_Cluster_Stats_th( squeeze(mean(Adult_AS_RDLPFC_TFR(beta,:,:))), squeeze(mean(Adult_PS_RDLPFC_TFR(beta,:,:))), 1000, .05);
+    = MEG_Cluster_Stats_th( squeeze(mean(D1(beta,:,:))), squeeze(mean(D2(beta,:,:))), 1000, .05);
 %
 if any(Sig_Pvals)
     [si,ei] = find_con(Sig_Mask);
@@ -209,7 +215,7 @@ if any(Sig_Pvals)
 end
 
 [ Stats, Clusters, Clust_Masks, Sig_Mask, Clust_Pvals,Sig_Pvals, Null_clusts_mass ]...
-    = MEG_Cluster_Stats_th( squeeze(mean(Adult_AS_RDLPFC_TFR(beta,:,:))), squeeze(mean(Teen_AS_RDLPFC_TFR(beta,:,:))), 1000, .05);
+    = MEG_Cluster_Stats_th( squeeze(mean(D1(beta,:,:))), squeeze(mean(D3(beta,:,:))), 1000, .05);
 %
 if any(Sig_Pvals)
     [si,ei] = find_con(Sig_Mask);
@@ -220,7 +226,7 @@ if any(Sig_Pvals)
 end
 
 [ Stats, Clusters, Clust_Masks, Sig_Mask, Clust_Pvals,Sig_Pvals, Null_clusts_mass ]...
-    = MEG_Cluster_Stats_th( squeeze(mean(Teen_AS_RDLPFC_TFR(beta,:,:))), squeeze(mean(Teen_PS_RDLPFC_TFR(beta,:,:))), 1000, .05);
+    = MEG_Cluster_Stats_th( squeeze(mean(D3(beta,:,:))), squeeze(mean(D4(beta,:,:))), 1000, .05);
 %
 if any(Sig_Pvals)
     [si,ei] = find_con(Sig_Mask);

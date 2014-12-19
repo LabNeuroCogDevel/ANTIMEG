@@ -131,10 +131,10 @@
 % end
 
 %% stats and plot
-
+close all
 FOIs=2:2:60;
-for r1=9 %DLPFC
-    for r2=6 %FEF
+for r1=10 %DLPFC
+    for r2=1:10 %FEF
         A=squeeze(Adult_AS_CORR(:,r1,r2,1:30,1:30)); %select matrices to plot and run stats on
         V=squeeze(Teen_AS_CORR(:,r1,r2,1:30,1:30));  
         
@@ -158,7 +158,7 @@ for r1=9 %DLPFC
         set(gca, 'LooseInset', [0,0,0,0]);
         %print(gcf, 'PowPowCorr_AS_Adult', '-dpng  ', '-r300')
         set(gca, 'Color', 'none');
-        export_fig A_PPCorr.tiff -m4 -painters
+        %export_fig A_PPCorr.tiff -m4 -painters
         
         figure;
         pcolor(FOIs(1:30),FOIs(1:30),squeeze(mean(V(:,1:30,1:30))));
@@ -178,7 +178,7 @@ for r1=9 %DLPFC
         set(gca, 'LooseInset', [0,0,0,0]);
         %print(gcf, 'PowPowCorr_AS_Teen', '-dpng  ', '-r300');
         set(gca, 'Color', 'none');
-        export_fig T_PPCorr.tiff -m4 -painters
+        %export_fig T_PPCorr.tiff -m4 -painters
         
         figure;
         pcolor(FOIs(1:30),FOIs(1:30),Stats.*Sig_Mask);
@@ -198,7 +198,7 @@ for r1=9 %DLPFC
         set(gca, 'LooseInset', [0,0,0,0]);
         %print(gcf, 'PowPowCorr_AvT', '-dpng  ', '-r300');
         set(gca, 'Color', 'none');
-        export_fig AvT_PPCorr.tiff -m4 -painters
+        %export_fig AvT_PPCorr.tiff -m4 -painters
         
         end
         
