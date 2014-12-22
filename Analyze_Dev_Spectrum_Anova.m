@@ -14,35 +14,35 @@ load Dev_Spectrum.mat;
 %D2 = Teen_AS_FEF_TFR;
 
 %smooth data to facilitate group comparison
-spm_smooth(Adult_AS_FEF_TFR,Adult_AS_FEF_TFR,[0,2,0],0);
-spm_smooth(Teen_AS_FEF_TFR,Teen_AS_FEF_TFR,[0,2,0],0);
+spm_smooth(Adult_AS_FEF_TFR,Adult_AS_FEF_TFR,[1,2,0],0);
+spm_smooth(Teen_AS_FEF_TFR,Teen_AS_FEF_TFR,[1,2,0],0);
 
-spm_smooth(Adult_AS_RFEF_TFR,Adult_AS_RFEF_TFR,[0,2,0],0);
-spm_smooth(Teen_AS_RFEF_TFR,Teen_AS_RFEF_TFR,[0,2,0],0);
+spm_smooth(Adult_AS_RFEF_TFR,Adult_AS_RFEF_TFR,[1,2,0],0);
+spm_smooth(Teen_AS_RFEF_TFR,Teen_AS_RFEF_TFR,[1,2,0],0);
 
-spm_smooth(Adult_AS_LFEF_TFR,Adult_AS_LFEF_TFR,[0,2,0],0);
-spm_smooth(Teen_AS_LFEF_TFR,Teen_AS_LFEF_TFR,[0,2,0],0);
+spm_smooth(Adult_AS_LFEF_TFR,Adult_AS_LFEF_TFR,[1,2,0],0);
+spm_smooth(Teen_AS_LFEF_TFR,Teen_AS_LFEF_TFR,[1,2,0],0);
 
-spm_smooth(Adult_AS_RDLPFC_TFR,Adult_AS_RDLPFC_TFR,[0,2,0],0);
-spm_smooth(Teen_AS_RDLPFC_TFR,Teen_AS_RDLPFC_TFR,[0,2,0],0);
+spm_smooth(Adult_AS_RDLPFC_TFR,Adult_AS_RDLPFC_TFR,[1,2,0],0);
+spm_smooth(Teen_AS_RDLPFC_TFR,Teen_AS_RDLPFC_TFR,[1,2,0],0);
 
-spm_smooth(Adult_AS_RVLPFC_TFR,Adult_AS_RVLPFC_TFR,[0,2,0],0);
-spm_smooth(Teen_AS_RVLPFC_TFR,Teen_AS_RVLPFC_TFR,[0,2,0],0);
+spm_smooth(Adult_AS_RVLPFC_TFR,Adult_AS_RVLPFC_TFR,[1,2,0],0);
+spm_smooth(Teen_AS_RVLPFC_TFR,Teen_AS_RVLPFC_TFR,[1,2,0],0);
 
-spm_smooth(Adult_PS_FEF_TFR,Adult_PS_FEF_TFR,[0,2,0],0);
-spm_smooth(Teen_PS_FEF_TFR,Teen_PS_FEF_TFR,[0,2,0],0);
+spm_smooth(Adult_PS_FEF_TFR,Adult_PS_FEF_TFR,[1,2,0],0);
+spm_smooth(Teen_PS_FEF_TFR,Teen_PS_FEF_TFR,[1,2,0],0);
 
-spm_smooth(Adult_PS_RFEF_TFR,Adult_PS_RFEF_TFR,[0,2,0],0);
-spm_smooth(Teen_PS_RFEF_TFR,Teen_PS_RFEF_TFR,[0,2,0],0);
+spm_smooth(Adult_PS_RFEF_TFR,Adult_PS_RFEF_TFR,[1,2,0],0);
+spm_smooth(Teen_PS_RFEF_TFR,Teen_PS_RFEF_TFR,[1,2,0],0);
 
-spm_smooth(Adult_PS_LFEF_TFR,Adult_PS_LFEF_TFR,[0,2,0],0);
-spm_smooth(Teen_PS_LFEF_TFR,Teen_PS_LFEF_TFR,[0,2,0],0);
+spm_smooth(Adult_PS_LFEF_TFR,Adult_PS_LFEF_TFR,[1,2,0],0);
+spm_smooth(Teen_PS_LFEF_TFR,Teen_PS_LFEF_TFR,[1,2,0],0);
 
-spm_smooth(Adult_PS_RDLPFC_TFR,Adult_PS_RDLPFC_TFR,[0,2,0],0);
-spm_smooth(Teen_PS_RDLPFC_TFR,Teen_PS_RDLPFC_TFR,[0,2,0],0);
+spm_smooth(Adult_PS_RDLPFC_TFR,Adult_PS_RDLPFC_TFR,[1,2,0],0);
+spm_smooth(Teen_PS_RDLPFC_TFR,Teen_PS_RDLPFC_TFR,[1,2,0],0);
 
-spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[0,2,0],0); 
-spm_smooth(Teen_PS_RVLPFC_TFR,Teen_PS_RVLPFC_TFR,[0,2,0],0);
+spm_smooth(Adult_PS_RVLPFC_TFR,Adult_PS_RVLPFC_TFR,[1,2,0],0); 
+spm_smooth(Teen_PS_RVLPFC_TFR,Teen_PS_RVLPFC_TFR,[1,2,0],0);
 
 
 %compile data structure

@@ -14,23 +14,23 @@ close all;
 load Dev_Power_Data
 
 %smooth
-spm_smooth(Adult_AS_RFEF,Adult_AS_RFEF,[0,3,0],0);
-spm_smooth(Adult_AS_LFEF,Adult_AS_LFEF,[0,3,0],0);
-spm_smooth(Adult_AS_RDLPFC,Adult_AS_RDLPFC,[0,3,0],0);
-spm_smooth(Adult_AS_RVLPFC,Adult_AS_RVLPFC,[0,3,0],0);
-spm_smooth(Adult_PS_RFEF,Adult_PS_RFEF,[0,3,0],0);
-spm_smooth(Adult_PS_LFEF,Adult_PS_LFEF,[0,3,0],0);
-spm_smooth(Adult_PS_RDLPFC,Adult_PS_RDLPFC,[0,3,0],0);
-spm_smooth(Adult_PS_RVLPFC,Adult_PS_RVLPFC,[0,3,0],0);
+spm_smooth(Adult_AS_RFEF,Adult_AS_RFEF,[1,2,0],0);
+spm_smooth(Adult_AS_LFEF,Adult_AS_LFEF,[1,2,0],0);
+spm_smooth(Adult_AS_RDLPFC,Adult_AS_RDLPFC,[1,2,0],0);
+spm_smooth(Adult_AS_RVLPFC,Adult_AS_RVLPFC,[1,2,0],0);
+spm_smooth(Adult_PS_RFEF,Adult_PS_RFEF,[1,2,0],0);
+spm_smooth(Adult_PS_LFEF,Adult_PS_LFEF,[1,2,0],0);
+spm_smooth(Adult_PS_RDLPFC,Adult_PS_RDLPFC,[1,2,0],0);
+spm_smooth(Adult_PS_RVLPFC,Adult_PS_RVLPFC,[1,2,0],0);
 
-spm_smooth(Teen_AS_RFEF,Teen_AS_RFEF,[0,3,0],0);
-spm_smooth(Teen_AS_LFEF,Teen_AS_LFEF,[0,3,0],0);
-spm_smooth(Teen_AS_RDLPFC,Teen_AS_RDLPFC,[0,3,0],0);
-spm_smooth(Teen_AS_RVLPFC,Teen_AS_RVLPFC,[0,3,0],0);
-spm_smooth(Teen_PS_RFEF,Teen_PS_RFEF,[0,3,0],0);
-spm_smooth(Teen_PS_LFEF,Teen_PS_LFEF,[0,3,0],0);
-spm_smooth(Teen_PS_RDLPFC,Teen_PS_RDLPFC,[0,3,0],0);
-spm_smooth(Teen_PS_RVLPFC,Teen_PS_RVLPFC,[0,3,0],0);
+spm_smooth(Teen_AS_RFEF,Teen_AS_RFEF,[1,2,0],0);
+spm_smooth(Teen_AS_LFEF,Teen_AS_LFEF,[1,2,0],0);
+spm_smooth(Teen_AS_RDLPFC,Teen_AS_RDLPFC,[1,2,0],0);
+spm_smooth(Teen_AS_RVLPFC,Teen_AS_RVLPFC,[1,2,0],0);
+spm_smooth(Teen_PS_RFEF,Teen_PS_RFEF,[1,2,0],0);
+spm_smooth(Teen_PS_LFEF,Teen_PS_LFEF,[1,2,0],0);
+spm_smooth(Teen_PS_RDLPFC,Teen_PS_RDLPFC,[1,2,0],0);
+spm_smooth(Teen_PS_RVLPFC,Teen_PS_RVLPFC,[1,2,0],0);
 %compile data into single structure for permutation
 %recompile data into the following format ROIxpowerxsubject
 

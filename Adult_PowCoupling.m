@@ -1,15 +1,21 @@
-% This is the script to plot power power amplitude coupling.
+% This is the script to plot power power amplitude coupling results. For the adult participants
 
 load Adult_PowPower_Coupling_data.mat
 
 %% stats and plot
 FOIs=2:2:40;
 
-AAA=shiftdim(Adult_AS_PowerCoupling_DLPFC_FEF,1);
-VVV=shiftdim(Adult_PS_PowerCoupling_DLPFC_FEF,1);
-[ Stats, Clusters, Clust_Masks, Sig_Mask, Clust_Pvals, Sig_Pvals, Null_clusts_mass ] = MEG_Cluster_Stats_th( AAA, VVV, 1000, .1);
+%extract signal
+AS_PowPow_Corr=shiftdim(Adult_AS_PowerCoupling_DLPFC_FEF,1);
+VS_PowPow_Corr=shiftdim(Adult_PS_PowerCoupling_DLPFC_FEF,1);
 
+%run stats
+[ Stats, Clusters, Clust_Masks, Sig_Mask, Clust_Pvals, Sig_Pvals, Null_clusts_mass ] = MEG_Cluster_Stats_th( AS_PowPow_Corr, VS_PowPow_Corr, 1000, .1);
+
+% if sig cluster s found, plot data
 if any(Sig_Pvals)
+    
+    %AS
     figure
     pcolor(FOIs(1:20),FOIs(1:20),squeeze(mean(Adult_AS_PowerCoupling_DLPFC_FEF(:,1:20,1:20))));
     caxis([-.3 .3]);
@@ -27,6 +33,8 @@ if any(Sig_Pvals)
     set(gca, 'Color', 'none');
     %export_fig A_PPCorr.png -r300 -transparent
     
+
+    %PS
     figure
     pcolor(FOIs(1:20),FOIs(1:20),squeeze(mean(Adult_PS_PowerCoupling_DLPFC_FEF(:,1:20,1:20))));
     caxis([-.3 .3]);
@@ -47,6 +55,7 @@ if any(Sig_Pvals)
     set(gca, 'Color', 'none');
     %export_fig T_PPCorr.png -r300 -transparent
     
+    %Stats contrasts
     figure
     pcolor(FOIs(1:20),FOIs(1:20),Stats.*Sig_Mask);
     caxis([-3 3]);

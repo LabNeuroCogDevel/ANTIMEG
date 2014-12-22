@@ -27,8 +27,8 @@ cfg.lpfreq = 4;
 %% preprocess adult data
 i=1;
 for n=1:20
-    AData{i} = ft_preprocessing(cfg, ANTISubData{n});
-    VData{i} = ft_preprocessing(cfg, VGSSubData{n});
+    AS_Data{i} = ft_preprocessing(cfg, ANTISubData{n});
+    VS_Data{i} = ft_preprocessing(cfg, VGSSubData{n});
     i=i+1;
 end
 %% extract trial data
@@ -36,8 +36,8 @@ end
 AANTIEvoke = [];
 for roi=1:10
     for s =1:20
-        n = sort(randsample(find(AData{s}.trialinfo==1),47));
-        data =AData{s}.trial(n);
+        n = sort(randsample(find(AS_Data{s}.trialinfo==1),47));
+        data =AS_Data{s}.trial(n);
         z=0;
         for t = 1:length(data)
             z = [z+detrend(abs(data{t}(roi,401:1000)))];
@@ -51,8 +51,8 @@ end
 AVGSEvoke = [];
 for roi=1:10
     for s =1:20
-        n = sort(randsample(find(VData{s}.trialinfo==1),47));
-        data =VData{s}.trial(n);
+        n = sort(randsample(find(VS_Data{s}.trialinfo==1),47));
+        data =VS_Data{s}.trial(n);
         z=0;
         for t = 1:length(data)
             z = [z+detrend(abs(data{t}(roi,401:1000)))];
@@ -65,12 +65,12 @@ end
 
 
 %% preprocess adolescent data
-AData=[];
-VData=[];
+AS_Data=[];
+VS_Data=[];
 i=1;
 for n=21:37
-    AData{i} = ft_preprocessing(cfg, ANTISubData{n});
-    VData{i} = ft_preprocessing(cfg, VGSSubData{n});
+    AS_Data{i} = ft_preprocessing(cfg, ANTISubData{n});
+    VS_Data{i} = ft_preprocessing(cfg, VGSSubData{n});
     i=i+1;
 end
 
@@ -78,8 +78,8 @@ end
 TANTIEvoke = [];
 for roi=1:10
     for s =1:17
-        n = sort(randsample(find(AData{s}.trialinfo==1),47));
-        data =AData{s}.trial(n);
+        n = sort(randsample(find(AS_Data{s}.trialinfo==1),47));
+        data =AS_Data{s}.trial(n);
         z=0;
         for t = 1:length(data)
             z = [z+detrend(abs(data{t}(roi,401:1000)))];
@@ -93,8 +93,8 @@ end
 TAVGSEvoke = [];
 for roi=1:10
     for s =1:17
-        n = sort(randsample(find(VData{s}.trialinfo==1),47));
-        data =VData{s}.trial(n);
+        n = sort(randsample(find(VS_Data{s}.trialinfo==1),47));
+        data =VS_Data{s}.trial(n);
         z=0;
         for t = 1:length(data)
             z = [z+detrend(abs(data{t}(roi,401:1000)))];
